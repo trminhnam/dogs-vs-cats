@@ -45,19 +45,22 @@ prediction_position.grid(row=2, column=0, padx=5, pady=20)
 
 img = None
 
+def show_classify_button(img_path):
+    classify_button = Button(button_area, text='Classify', command=lambda: classify(img_path), width=20, height=2)
+    classify_button.grid(row=1, column=0, padx=5, pady=5)
 
 def upload_image():
     # try:
-        file_path=fd.askopenfilename()
+        img_path=fd.askopenfilename()
 
 
-        print(file_path)
-        uploaded=Image.open(file_path)
+        print(img_path)
+        uploaded=Image.open(img_path)
         uploaded.thumbnail(((window.winfo_width()/2.25), (window.winfo_height()/2.25)))
         
         
         global img
-        img = ImageTk.PhotoImage(Image.open(file_path)) 
+        img = ImageTk.PhotoImage(Image.open(img_path)) 
         
         # drawing_area = Canvas(window, bg='white', image=img)
         # drawing_area.grid(row=1, column=0, padx=10, pady=5)
@@ -65,7 +68,7 @@ def upload_image():
         # drawing_area.update()
 
         label.configure(text='')
-        # show_classify_button()
+        show_classify_button(img_path)
     # except:
         pass
 
@@ -84,6 +87,6 @@ def classify(img_path):
     # Output the result
     print(pred)
     sign = categories[pred]
-    print(sign)
+    prediction_position.configure(text=sign)
 
 window.mainloop()
