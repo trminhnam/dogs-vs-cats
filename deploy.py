@@ -40,7 +40,7 @@ upload_img_button.grid(row=0, column=0, padx=5, pady=5)
 classify_button = Label(button_area, text='', bg='white', width=20, height=2)
 classify_button.grid(row=1, column=0, padx=5, pady=10)
 
-prediction_position = Label(button_area, text='Cat', bg='white', font=('arial',15,'bold'))
+prediction_position = Label(button_area, text='', bg='white', font=('arial',15,'bold'))
 prediction_position.grid(row=2, column=0, padx=5, pady=20)
 
 img = None
