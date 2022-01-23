@@ -1,13 +1,15 @@
-import imghdr
+from distutils.command.upload import upload
 import tkinter as tk
 from tkinter import *
+from turtle import window_height
 import numpy as np
 import cv2
 import tensorflow as tf
 from PIL import ImageTk, Image
 from tkinter import filedialog as fd 
+import os
 
-model = tf.keras.models.load_model('CNN_0.88.h5')
+model = tf.keras.models.load_model(os.path.join('CNN', 'CNN_0.88.h5'))
 
 categories = {
     0: 'cat',
@@ -53,21 +55,28 @@ def upload_image():
     # try:
         img_path=fd.askopenfilename()
 
-
         print(img_path)
         uploaded=Image.open(img_path)
-        uploaded.thumbnail(((window.winfo_width()/2.25), (window.winfo_height()/2.25)))
+        # uploaded.thumbnail(((window.winfo_width()/1), (window.winfo_width()/1)))
         
+        width, height = uploaded.size
+        width_ratio = drawing_area.winfo_width()/width
+        height_ratio = drawing_area.winfo_height()/height
+
+        scalar = min(width_ratio, height_ratio)
+        # print(width_ratio, height_ratio, ratio)
+        resized = uploaded.resize((int(width*scalar), int(height*scalar)), Image.ANTIALIAS)
         
         global img
-        img = ImageTk.PhotoImage(Image.open(img_path)) 
+        # img = ImageTk.PhotoImage(Image.open(img_path)) 
+        # img = ImageTk.PhotoImage(uploaded) 
+        img = ImageTk.PhotoImage(resized) 
         
         # drawing_area = Canvas(window, bg='white', image=img)
         # drawing_area.grid(row=1, column=0, padx=10, pady=5)
         drawing_area.create_image(0+img.width()/2,0+img.height()/2,image=img)
         # drawing_area.update()
 
-        label.configure(text='')
         show_classify_button(img_path)
     # except:
         pass
