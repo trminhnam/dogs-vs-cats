@@ -1,3 +1,2 @@
 # dogs-vs-cats
-
- ![Dataset source:](https://www.kaggle.com/datasets/shaunthesheep/microsoft-catsvsdogs-dataset)
+Dataset source: [Kaggle - Cats-vs-Dogs](https://www.kaggle.com/datasets/shaunthesheep/microsoft-catsvsdogs-dataset))
